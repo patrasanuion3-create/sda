@@ -1,0 +1,31 @@
+#include <vector>
+#include <stack>
+
+class Solution {
+public:
+    vector<int> inorderTraversal(TreeNode* root) {
+        vector<int> result;
+        stack<TreeNode*> st;
+        TreeNode* curr = root;
+
+        while (curr != nullptr || !st.empty()) {
+            // Coborât cât de mult posibil spre stânga, salvând nodurile în stivă
+            while (curr != nullptr) {
+                st.push(curr);
+                curr = curr->left;
+            }
+
+            // Luăm ultimul nod din stivă (cel mai din stânga neprocesat)
+            curr = st.top();
+            st.pop();
+
+            // Procesăm valoarea nodului
+            result.push_back(curr->val);
+
+            // Trecem la subarborele drept
+            curr = curr->right;
+        }
+
+        return result;
+    }
+};
